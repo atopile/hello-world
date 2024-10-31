@@ -1,2 +1,521 @@
+from "esp32-s3/elec/src/esp32-s3.ato" import ESP32S3
+from "usb-connectors/usb-connectors.ato" import USBCConn
+from "generics/leds.ato" import LEDIndicator, LED
+from "generics/interfaces.ato" import Power
+from "generics/mosfets.ato" import LowSideSwitch, NFET
+from "generics/capacitors.ato" import Capacitor
+
 module HelloWorld:
-    signal gnd
+    """Hello World atofab demo"""
+
+    power_5v = new Power
+    power_3v3 = new Power
+
+    power_hello_world = new Power
+    power_hello_world.voltage = 5V
+
+    power_logo = new Power
+    power_logo.voltage = 5V
+
+    power_5v.vcc.override_net_name = "5V"
+    power_3v3.vcc.override_net_name = "3V3"
+    power_hello_world.gnd.override_net_name = "GND_HELLO_WORLD"
+    power_logo.gnd.override_net_name = "GND_LOGO"
+
+    # USB connector
+    usb_connector = new USBCConn
+    usb_connector.power ~ power_5v
+
+    # Regulator
+    regulator = new Regulator
+    regulator.power_in ~ power_5v
+    regulator.power_out ~ power_3v3
+
+    # Microcontroller
+    esp32 = new ESP32S3
+    esp32.power ~ power_3v3
+    usb_connector.usb2 ~ esp32.usb2
+
+    # Switches
+    hello_world_switch = new LowSideSwitch
+    hello_world_switch.power ~ power_5v
+    hello_world_switch.load ~ power_hello_world
+    hello_world_switch.input.io ~ esp32.io1
+    hello_world_switch.fet -> BSS138
+
+    logo_switch = new LowSideSwitch
+    logo_switch.power ~ power_5v
+    logo_switch.load ~ power_logo
+    logo_switch.input.io ~ esp32.io2
+    logo_switch.fet -> BSS138
+
+    # Add some capacitors to the 5v rail
+    cap1 = new Capacitor
+    cap1.power ~ power_5v
+    cap1.value = 1uF +/- 20%
+    cap1.package = "0402"
+
+    # Add 10 more capacitors to the 5v rail
+    cap2 = new Capacitor
+    cap2.power ~ power_5v
+    cap2.value = 1uF +/- 20%
+    cap2.package = "0402"
+
+    cap3 = new Capacitor
+    cap3.power ~ power_5v
+    cap3.value = 1uF +/- 20%
+    cap3.package = "0402"
+
+    cap4 = new Capacitor
+    cap4.power ~ power_5v
+    cap4.value = 1uF +/- 20%
+    cap4.package = "0402"
+
+    cap5 = new Capacitor
+    cap5.power ~ power_5v
+    cap5.value = 1uF +/- 20%
+    cap5.package = "0402"
+
+    cap6 = new Capacitor
+    cap6.power ~ power_5v
+    cap6.value = 1uF +/- 20%
+    cap6.package = "0402"
+
+    cap7 = new Capacitor
+    cap7.power ~ power_5v
+    cap7.value = 1uF +/- 20%
+    cap7.package = "0402"
+
+    cap8 = new Capacitor
+    cap8.power ~ power_5v
+    cap8.value = 1uF +/- 20%
+    cap8.package = "0402"
+
+    cap9 = new Capacitor
+    cap9.power ~ power_5v
+    cap9.value = 1uF +/- 20%
+    cap9.package = "0402"
+
+    cap10 = new Capacitor
+    cap10.power ~ power_5v
+    cap10.value = 1uF +/- 20%
+    cap10.package = "0402"
+
+    # Hello World LEDs
+    led1 = new LedIndicator
+    led2 = new LedIndicator
+    led3 = new LedIndicator
+    led4 = new LedIndicator
+    led5 = new LedIndicator
+    led6 = new LedIndicator
+    led7 = new LedIndicator
+    led8 = new LedIndicator
+    led9 = new LedIndicator
+    led10 = new LedIndicator
+    led11 = new LedIndicator
+    led12 = new LedIndicator
+    led13 = new LedIndicator
+    led14 = new LedIndicator
+    led15 = new LedIndicator
+    led16 = new LedIndicator
+    led17 = new LedIndicator
+    led18 = new LedIndicator
+    led19 = new LedIndicator
+    led20 = new LedIndicator
+    led21 = new LedIndicator
+    led22 = new LedIndicator
+    led23 = new LedIndicator
+    led24 = new LedIndicator
+    led25 = new LedIndicator
+    led26 = new LedIndicator
+    led27 = new LedIndicator
+    led28 = new LedIndicator
+    led29 = new LedIndicator
+    led30 = new LedIndicator
+    led31 = new LedIndicator
+    led33 = new LedIndicator
+    led34 = new LedIndicator
+    led35 = new LedIndicator
+    led36 = new LedIndicator
+    led37 = new LedIndicator
+    led38 = new LedIndicator
+    led39 = new LedIndicator
+    led40 = new LedIndicator
+    led41 = new LedIndicator
+    led42 = new LedIndicator
+    led43 = new LedIndicator
+    led44 = new LedIndicator
+    led45 = new LedIndicator
+    led46 = new LedIndicator
+    led47 = new LedIndicator
+    led48 = new LedIndicator
+    led49 = new LedIndicator
+    led50 = new LedIndicator
+    led51 = new LedIndicator
+    led52 = new LedIndicator
+    led53 = new LedIndicator
+    led54 = new LedIndicator
+    led55 = new LedIndicator
+    led56 = new LedIndicator
+    led57 = new LedIndicator
+    led58 = new LedIndicator
+    led59 = new LedIndicator
+    led60 = new LedIndicator
+    led61 = new LedIndicator
+    led62 = new LedIndicator
+    led63 = new LedIndicator
+    led64 = new LedIndicator
+    led65 = new LedIndicator
+    led66 = new LedIndicator
+    led67 = new LedIndicator
+    led68 = new LedIndicator
+    led69 = new LedIndicator
+    led70 = new LedIndicator
+    led71 = new LedIndicator
+    led72 = new LedIndicator
+    led73 = new LedIndicator
+    led74 = new LedIndicator
+    led75 = new LedIndicator
+    led76 = new LedIndicator
+    led77 = new LedIndicator
+    led78 = new LedIndicator
+    led79 = new LedIndicator
+    led80 = new LedIndicator
+    led81 = new LedIndicator
+    led82 = new LedIndicator
+    led83 = new LedIndicator
+    led84 = new LedIndicator
+    led85 = new LedIndicator
+    led86 = new LedIndicator
+    led87 = new LedIndicator
+    led88 = new LedIndicator
+    led89 = new LedIndicator
+    led90 = new LedIndicator
+    led91 = new LedIndicator
+    led92 = new LedIndicator
+    led93 = new LedIndicator
+    led94 = new LedIndicator
+    led95 = new LedIndicator
+    led96 = new LedIndicator
+    led97 = new LedIndicator
+    led98 = new LedIndicator
+    led99 = new LedIndicator
+    led100 = new LedIndicator
+    
+    # Connect all LEDs to power
+    led1.power ~ power_hello_world
+    led2.power ~ power_hello_world
+    led3.power ~ power_hello_world
+    led4.power ~ power_hello_world
+    led5.power ~ power_hello_world
+    led6.power ~ power_hello_world
+    led7.power ~ power_hello_world
+    led8.power ~ power_hello_world
+    led9.power ~ power_hello_world
+    led10.power ~ power_hello_world
+    led11.power ~ power_hello_world
+    led12.power ~ power_hello_world
+    led13.power ~ power_hello_world
+    led14.power ~ power_hello_world
+    led15.power ~ power_hello_world
+    led16.power ~ power_hello_world
+    led17.power ~ power_hello_world
+    led18.power ~ power_hello_world
+    led19.power ~ power_hello_world
+    led20.power ~ power_hello_world
+    led21.power ~ power_hello_world
+    led22.power ~ power_hello_world
+    led23.power ~ power_hello_world
+    led24.power ~ power_hello_world
+    led25.power ~ power_hello_world
+    led26.power ~ power_hello_world
+    led27.power ~ power_hello_world
+    led28.power ~ power_hello_world
+    led29.power ~ power_hello_world
+    led30.power ~ power_hello_world
+    led31.power ~ power_hello_world
+    led33.power ~ power_hello_world
+    led34.power ~ power_hello_world
+    led35.power ~ power_hello_world
+    led36.power ~ power_hello_world
+    led37.power ~ power_hello_world
+    led38.power ~ power_hello_world
+    led39.power ~ power_hello_world
+    led40.power ~ power_hello_world
+    led41.power ~ power_hello_world
+    led42.power ~ power_hello_world
+    led43.power ~ power_hello_world
+    led44.power ~ power_hello_world
+    led45.power ~ power_hello_world
+    led46.power ~ power_hello_world
+    led47.power ~ power_hello_world
+    led48.power ~ power_hello_world
+    led49.power ~ power_hello_world
+    led50.power ~ power_hello_world
+    led51.power ~ power_hello_world
+    led52.power ~ power_hello_world
+    led53.power ~ power_hello_world
+    led54.power ~ power_hello_world
+    led55.power ~ power_hello_world
+    led56.power ~ power_hello_world
+    led57.power ~ power_hello_world
+    led58.power ~ power_hello_world
+    led59.power ~ power_hello_world
+    led60.power ~ power_hello_world
+    led61.power ~ power_hello_world
+    led62.power ~ power_hello_world
+    led63.power ~ power_hello_world
+    led64.power ~ power_hello_world
+    led65.power ~ power_hello_world
+    led66.power ~ power_hello_world
+    led67.power ~ power_hello_world
+    led68.power ~ power_hello_world
+    led69.power ~ power_hello_world
+    led70.power ~ power_hello_world
+    led71.power ~ power_hello_world
+    led72.power ~ power_hello_world
+    led73.power ~ power_hello_world
+    led74.power ~ power_hello_world
+    led75.power ~ power_hello_world
+    led76.power ~ power_hello_world
+    led77.power ~ power_hello_world
+    led78.power ~ power_hello_world
+    led79.power ~ power_hello_world
+    led80.power ~ power_hello_world
+    led81.power ~ power_hello_world
+    led82.power ~ power_hello_world
+    led83.power ~ power_hello_world
+    led84.power ~ power_hello_world
+    led85.power ~ power_hello_world
+    led86.power ~ power_hello_world
+    led87.power ~ power_hello_world
+    led88.power ~ power_hello_world
+    led89.power ~ power_hello_world
+    led90.power ~ power_hello_world
+    led91.power ~ power_hello_world
+    led92.power ~ power_hello_world
+    led93.power ~ power_hello_world
+    led94.power ~ power_hello_world
+    led95.power ~ power_hello_world
+    led96.power ~ power_hello_world
+    led97.power ~ power_hello_world
+    led98.power ~ power_hello_world
+    led99.power ~ power_hello_world
+    led100.power ~ power_hello_world
+
+    # Logo LEDs
+    led_logo1 = new LedIndicator
+    led_logo2 = new LedIndicator
+    led_logo3 = new LedIndicator
+    led_logo4 = new LedIndicator
+    led_logo5 = new LedIndicator
+    led_logo6 = new LedIndicator
+    led_logo7 = new LedIndicator
+    led_logo8 = new LedIndicator
+    led_logo10 = new LedIndicator
+    led_logo11 = new LedIndicator
+    led_logo12 = new LedIndicator
+    led_logo13 = new LedIndicator
+    led_logo14 = new LedIndicator
+    led_logo15 = new LedIndicator
+    led_logo16 = new LedIndicator
+    led_logo17 = new LedIndicator
+    led_logo18 = new LedIndicator
+    led_logo19 = new LedIndicator
+    led_logo20 = new LedIndicator
+    led_logo21 = new LedIndicator
+    led_logo22 = new LedIndicator
+    led_logo23 = new LedIndicator
+    led_logo25 = new LedIndicator
+    led_logo26 = new LedIndicator
+    led_logo27 = new LedIndicator
+    led_logo28 = new LedIndicator
+    led_logo29 = new LedIndicator
+    led_logo30 = new LedIndicator
+    led_logo31 = new LedIndicator
+    led_logo32 = new LedIndicator
+    led_logo33 = new LedIndicator
+    led_logo34 = new LedIndicator
+    led_logo35 = new LedIndicator
+    led_logo36 = new LedIndicator
+    led_logo37 = new LedIndicator
+    led_logo38 = new LedIndicator
+    led_logo40 = new LedIndicator
+    led_logo41 = new LedIndicator
+    led_logo42 = new LedIndicator
+    led_logo43 = new LedIndicator
+    led_logo45 = new LedIndicator
+    led_logo46 = new LedIndicator
+    led_logo47 = new LedIndicator
+    led_logo48 = new LedIndicator
+    led_logo49 = new LedIndicator
+
+    # Connect all LEDs to power
+    led_logo1.power ~ power_logo
+    led_logo2.power ~ power_logo
+    led_logo3.power ~ power_logo
+    led_logo4.power ~ power_logo
+    led_logo5.power ~ power_logo
+    led_logo6.power ~ power_logo
+    led_logo7.power ~ power_logo
+    led_logo8.power ~ power_logo
+    led_logo10.power ~ power_logo
+    led_logo11.power ~ power_logo
+    led_logo12.power ~ power_logo
+    led_logo13.power ~ power_logo
+    led_logo14.power ~ power_logo
+    led_logo15.power ~ power_logo
+    led_logo16.power ~ power_logo
+    led_logo17.power ~ power_logo
+    led_logo18.power ~ power_logo
+    led_logo19.power ~ power_logo
+    led_logo20.power ~ power_logo
+    led_logo21.power ~ power_logo
+    led_logo22.power ~ power_logo
+    led_logo23.power ~ power_logo
+    led_logo25.power ~ power_logo
+    led_logo26.power ~ power_logo
+    led_logo27.power ~ power_logo
+    led_logo28.power ~ power_logo
+    led_logo29.power ~ power_logo
+    led_logo30.power ~ power_logo
+    led_logo31.power ~ power_logo
+    led_logo32.power ~ power_logo
+    led_logo33.power ~ power_logo
+    led_logo34.power ~ power_logo
+    led_logo35.power ~ power_logo
+    led_logo36.power ~ power_logo
+    led_logo37.power ~ power_logo
+    led_logo38.power ~ power_logo
+    led_logo40.power ~ power_logo
+    led_logo41.power ~ power_logo
+    led_logo42.power ~ power_logo
+    led_logo43.power ~ power_logo
+    led_logo45.power ~ power_logo
+    led_logo46.power ~ power_logo
+    led_logo47.power ~ power_logo
+    led_logo48.power ~ power_logo
+    led_logo49.power ~ power_logo
+
+    # Use orange leds for the logo
+    led_logo1.indicator.led -> Orange0402LED
+    led_logo2.indicator.led -> Orange0402LED
+    led_logo3.indicator.led -> Orange0402LED
+    led_logo4.indicator.led -> Orange0402LED
+    led_logo5.indicator.led -> Orange0402LED
+    led_logo6.indicator.led -> Orange0402LED
+    led_logo7.indicator.led -> Orange0402LED
+    led_logo8.indicator.led -> Orange0402LED
+    led_logo9.indicator.led -> Orange0402LED
+    led_logo10.indicator.led -> Orange0402LED
+    led_logo11.indicator.led -> Orange0402LED
+    led_logo12.indicator.led -> Orange0402LED
+    led_logo13.indicator.led -> Orange0402LED
+    led_logo14.indicator.led -> Orange0402LED
+    led_logo15.indicator.led -> Orange0402LED
+    led_logo16.indicator.led -> Orange0402LED
+    led_logo17.indicator.led -> Orange0402LED
+    led_logo18.indicator.led -> Orange0402LED
+    led_logo19.indicator.led -> Orange0402LED
+    led_logo20.indicator.led -> Orange0402LED
+    led_logo21.indicator.led -> Orange0402LED
+    led_logo22.indicator.led -> Orange0402LED
+    led_logo23.indicator.led -> Orange0402LED
+    led_logo24.indicator.led -> Orange0402LED
+    led_logo25.indicator.led -> Orange0402LED
+    led_logo26.indicator.led -> Orange0402LED
+    led_logo27.indicator.led -> Orange0402LED
+    led_logo28.indicator.led -> Orange0402LED
+    led_logo29.indicator.led -> Orange0402LED
+    led_logo30.indicator.led -> Orange0402LED
+    led_logo31.indicator.led -> Orange0402LED
+    led_logo32.indicator.led -> Orange0402LED
+    led_logo33.indicator.led -> Orange0402LED
+    led_logo34.indicator.led -> Orange0402LED
+    led_logo35.indicator.led -> Orange0402LED
+    led_logo36.indicator.led -> Orange0402LED
+    led_logo37.indicator.led -> Orange0402LED
+    led_logo38.indicator.led -> Orange0402LED
+    led_logo39.indicator.led -> Orange0402LED
+    led_logo40.indicator.led -> Orange0402LED
+    led_logo41.indicator.led -> Orange0402LED
+    led_logo42.indicator.led -> Orange0402LED
+    led_logo43.indicator.led -> Orange0402LED
+    led_logo44.indicator.led -> Orange0402LED
+    led_logo45.indicator.led -> Orange0402LED
+    led_logo46.indicator.led -> Orange0402LED
+    led_logo47.indicator.led -> Orange0402LED
+    led_logo48.indicator.led -> Orange0402LED
+    led_logo49.indicator.led -> Orange0402LED
+    led_logo50.indicator.led -> Orange0402LED
+
+
+
+module LedIndicator:
+    power = new Power
+    # power.voltage = 5V
+    indicator = new LEDIndicator
+    power ~ indicator.power
+    indicator.led -> Red0402LED
+    indicator.current  = 0.5mA to 1mA
+
+component Orange0402LED from LED:
+    # component _16_minus_213_slash_S2C_minus_BM2P1VY_slash_3T_lparen_XY_rparen
+    footprint = "LED0402-RD_ORANGE"
+    lcsc_id = "C605451"
+    mpn = "C605451"
+    v_f = 2.1V
+    i_max = 5mA
+    # pins
+    signal anode ~ pin 2
+    signal cathode ~ pin 1
+
+    
+component Red0402LED from LED:
+    footprint = "LED0402-RD_ORANGE"
+    lcsc_id = "C397045"
+    mpn = "C397045"
+    v_f = 2.1V
+    i_max = 5mA
+    # pins
+    signal anode ~ pin 2
+    signal cathode ~ pin 1
+
+
+component BSS138 from NFET:
+    # component BSS138
+    footprint = "SOT-23-3_L2.9-W1.3-P1.90-LS2.4-BR"
+    lcsc_id = "C78284"
+    mpn = "C78284"
+    # pins
+    drain ~ pin 3
+    gate ~ pin 1
+    source ~ pin 2
+
+
+module Regulator:
+    power_in = new Power
+    power_out = new Power
+    regulator = new HT7533_C5279052
+
+    power_in.vcc ~ regulator.VIN
+    power_out.vcc ~ regulator.VOUT
+    power_in.gnd ~ regulator.GND
+    power_out.gnd ~ regulator.GND
+
+    # Input capacitor
+    input_capacitor = new Capacitor
+    input_capacitor.power ~ power_in
+    input_capacitor.value = 1uF +/- 20%
+    input_capacitor.package = "0402"
+
+
+component HT7533_C5279052:
+    # component HT7533_C5279052
+    footprint = "SOT-23-3_L2.9-W1.3-P0.95-LS2.4-BR"
+    lcsc_id = "C5279052"
+    mpn = "C5279052"
+    # pins
+    signal VOUT ~ pin 2
+    signal GND ~ pin 1
+    signal VIN ~ pin 3
